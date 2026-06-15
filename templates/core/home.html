@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Home' %} | LocalFix{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">{% trans 'Neighborhood issue tracker' %}</p>
+        <h1>{% trans 'Report local problems and follow their progress.' %}</h1>
+        <p class="lead">
+            {% trans 'LocalFix will help residents submit location-based reports, upload photos, and track moderator updates.' %}
+        </p>
+        {% if user.is_authenticated %}
+            <p class="status-box">
+                {% trans 'You are signed in as' %} <strong>{{ user.username }}</strong>.
+                {% trans 'Your role is' %} <strong>{{ user.profile.get_role_display }}</strong>.
+            </p>
+        {% else %}
+            <div class="actions">
+                <a class="button-link" href="{% url 'register' %}">{% trans 'Create account' %}</a>
+                <a href="{% url 'login' %}">{% trans 'I already have an account' %}</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

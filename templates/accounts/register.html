@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Register' %} | LocalFix{% endblock %}
+
+{% block content %}
+<section class="auth-panel">
+    <h1>{% trans 'Create account' %}</h1>
+    <form method="post" class="auth-form preserve-form-state" novalidate>
+        {% csrf_token %}
+        {% for error in form.non_field_errors %}
+            <div class="form-error">{{ error }}</div>
+        {% endfor %}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% for error in field.errors %}
+                <div class="form-error">{{ error }}</div>
+            {% endfor %}
+        {% endfor %}
+        <button type="submit">{% trans 'Register' %}</button>
+    </form>
+    <p>{% trans 'Already registered?' %} <a href="{% url 'login' %}">{% trans 'Log in' %}</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,69 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LocalFix 1.0\n"
+"Language: lv\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Main navigation"
+msgstr "Galvenā navigācija"
+
+msgid "Home"
+msgstr "Sākums"
+
+msgid "Log out"
+msgstr "Iziet"
+
+msgid "Log in"
+msgstr "Pieslēgties"
+
+msgid "Register"
+msgstr "Reģistrēties"
+
+msgid "Language"
+msgstr "Valoda"
+
+msgid "Neighborhood issue tracker"
+msgstr "Apkaimes problēmu pieteikumi"
+
+msgid "Report local problems and follow their progress."
+msgstr "Piesaki apkaimes problēmas un seko to progresam."
+
+msgid "LocalFix will help residents submit location-based reports, upload photos, and track moderator updates."
+msgstr "LocalFix palīdzēs iedzīvotājiem iesniegt pieteikumus ar atrašanās vietu, augšupielādēt attēlus un sekot moderatoru izmaiņām."
+
+msgid "You are signed in as"
+msgstr "Tu esi pieslēdzies kā"
+
+msgid "Your role is"
+msgstr "Tava loma ir"
+
+msgid "Create account"
+msgstr "Izveidot kontu"
+
+msgid "I already have an account"
+msgstr "Man jau ir konts"
+
+msgid "Already registered?"
+msgstr "Jau reģistrējies?"
+
+msgid "Need an account?"
+msgstr "Vajag kontu?"
+
+msgid "User"
+msgstr "Lietotājs"
+
+msgid "Moderator"
+msgstr "Moderators"
+
+msgid "Account created successfully."
+msgstr "Konts veiksmīgi izveidots."
+
+msgid "Wrong username or password."
+msgstr "Nepareizs lietot\u0101jv\u0101rds vai parole."
+
+msgid "This account is inactive."
+msgstr "?is konts nav akt?vs."
+
+msgid "Authorize"
+msgstr "Autorizēties"
