@@ -60,10 +60,181 @@ msgid "Account created successfully."
 msgstr "Konts veiksmīgi izveidots."
 
 msgid "Wrong username or password."
-msgstr "Nepareizs lietot\u0101jv\u0101rds vai parole."
+msgstr "Nepareizs lietotājvārds vai parole."
 
 msgid "This account is inactive."
-msgstr "?is konts nav akt?vs."
+msgstr "Šis konts nav aktīvs."
 
 msgid "Authorize"
 msgstr "Autorizēties"
+
+msgid "Reports"
+msgstr "Pieteikumi"
+
+msgid "New report"
+msgstr "Jauns pieteikums"
+
+msgid "Categories"
+msgstr "Kategorijas"
+
+msgid "Create report"
+msgstr "Izveidot pieteikumu"
+
+msgid "View reports"
+msgstr "Skatīt pieteikumus"
+
+msgid "Neighborhood reports"
+msgstr "Apkaimes pieteikumi"
+
+msgid "Search reports"
+msgstr "Meklēt pieteikumus"
+
+msgid "All categories"
+msgstr "Visas kategorijas"
+
+msgid "All statuses"
+msgstr "Visi statusi"
+
+msgid "Filter"
+msgstr "Filtrēt"
+
+msgid "Created by"
+msgstr "Izveidoja"
+
+msgid "No reports found."
+msgstr "Pieteikumi nav atrasti."
+
+msgid "Coordinates"
+msgstr "Koordinātes"
+
+msgid "Report photo"
+msgstr "Pieteikuma attēls"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Delete report"
+msgstr "Dzēst pieteikumu"
+
+msgid "Are you sure you want to delete this report?"
+msgstr "Vai tiešām vēlaties dzēst šo pieteikumu?"
+
+msgid "Cancel"
+msgstr "Atcelt"
+
+msgid "Edit report"
+msgstr "Labot pieteikumu"
+
+msgid "Report created successfully."
+msgstr "Pieteikums veiksmīgi izveidots."
+
+msgid "Report updated successfully."
+msgstr "Pieteikums veiksmīgi atjaunināts."
+
+msgid "Report deleted successfully."
+msgstr "Pieteikums veiksmīgi dzēsts."
+
+msgid "Title"
+msgstr "Nosaukums"
+
+msgid "Category"
+msgstr "Kategorija"
+
+msgid "Description"
+msgstr "Apraksts"
+
+msgid "Address"
+msgstr "Adrese"
+
+msgid "Latitude"
+msgstr "Platums"
+
+msgid "Longitude"
+msgstr "Garums"
+
+msgid "Photo"
+msgstr "Foto"
+
+msgid "Status"
+msgstr "Statuss"
+
+msgid "New"
+msgstr "Jauns"
+
+msgid "In progress"
+msgstr "Procesā"
+
+msgid "Resolved"
+msgstr "Atrisināts"
+
+msgid "Rejected"
+msgstr "Noraidīts"
+
+msgid "Pieteikumi"
+msgstr "Pieteikumi"
+
+msgid "Konti"
+msgstr "Konti"
+
+msgid "Name"
+msgstr "Nosaukums"
+
+msgid "Report"
+msgstr "Pieteikums"
+
+msgid "Report image"
+msgstr "Pieteikuma attēls"
+
+msgid "Report images"
+msgstr "Pieteikuma attēli"
+
+msgid "Created at"
+msgstr "Izveidots"
+
+msgid "Updated at"
+msgstr "Atjaunināts"
+
+msgid "Uploaded at"
+msgstr "Augšupielādēts"
+
+msgid "Welcome"
+msgstr "Sveiks"
+
+msgid "My reports"
+msgstr "Mani pieteikumi"
+
+msgid "Total reports"
+msgstr "Kopā"
+
+msgid "New reports"
+msgstr "Jauni"
+
+msgid "Resolved reports"
+msgstr "Atrisināti"
+
+msgid "Rejected reports"
+msgstr "Noraidīti"
+
+msgid "Current photos"
+msgstr "Pašreizējie foto"
+
+msgid "Delete this photo"
+msgstr "Dzēst šo foto"
+
+msgid "Pagination"
+msgstr "Lapošana"
+
+msgid "Previous"
+msgstr "Iepriekšējā"
+
+msgid "Next"
+msgstr "Nākamā"
+
+msgid "Page"
+msgstr "Lapa"

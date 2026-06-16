@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Delete report' %} | LocalFix{% endblock %}
+
+{% block content %}
+<section class="auth-panel">
+    <h1>{% trans 'Delete report' %}</h1>
+    <p>{% trans 'Are you sure you want to delete this report?' %}</p>
+    <p><strong>{{ report.title }}</strong></p>
+    <form method="post" class="actions">
+        {% csrf_token %}
+        <button type="submit" class="danger-button">{% trans 'Delete' %}</button>
+        <a href="{{ report.get_absolute_url }}">{% trans 'Cancel' %}</a>
+    </form>
+</section>
+{% endblock %}

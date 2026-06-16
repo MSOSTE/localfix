@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ report.title }} | LocalFix{% endblock %}
+
+{% block content %}
+<article class="detail-panel">
+    <div class="card-topline">
+        <span class="badge">{{ report.category.name }}</span>
+        <span class="status-pill status-{{ report.status }}">{{ report.get_status_display }}</span>
+    </div>
+    <h1>{{ report.title }}</h1>
+    <p class="meta">{{ report.address }}</p>
+    <p>{{ report.description }}</p>
+
+    {% if report.latitude and report.longitude %}
+        <p class="meta">{% trans 'Coordinates' %}: {{ report.latitude }}, {{ report.longitude }}</p>
+    {% endif %}
+
+    {% if report.images.all %}
+        <div class="image-grid">
+            {% for image in report.images.all %}
+                <img src="{{ image.image.url }}" alt="{% trans 'Report photo' %}">
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="detail-footer">
+        <p class="meta">{% trans 'Created by' %} {{ report.created_by.username }} · {{ report.created_at|date:"d.m.Y H:i" }}</p>
+        {% if can_edit %}
+            <div class="actions">
+                <a class="button-link" href="{% url 'report_update' report.pk %}">{% trans 'Edit' %}</a>
+                <a class="danger-link" href="{% url 'report_delete' report.pk %}">{% trans 'Delete' %}</a>
+            </div>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}

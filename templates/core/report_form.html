@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | LocalFix{% endblock %}
+
+{% block content %}
+<section class="auth-panel">
+    <p class="hero-label">{{ title }}</p>
+    <form method="post" enctype="multipart/form-data" class="auth-form" novalidate>
+        {% csrf_token %}
+        {% for error in form.non_field_errors %}
+            <div class="form-error">{{ error }}</div>
+        {% endfor %}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+                {% if field.field.required %}<span class="required-mark">*</span>{% endif %}
+            </label>
+            {{ field }}
+            {% for error in field.errors %}
+                <div class="form-error">{{ error }}</div>
+            {% endfor %}
+        {% endfor %}
+
+        {% for field in image_form %}
+            <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+                {% if field.field.required %}<span class="required-mark">*</span>{% endif %}
+            </label>
+            {{ field }}
+            {% for error in field.errors %}
+                <div class="form-error">{{ error }}</div>
+            {% endfor %}
+        {% endfor %}
+
+        {% if report.images.all %}
+            <div class="current-images">
+                <h2>{% trans 'Current photos' %}</h2>
+                <div class="current-image-grid">
+                    {% for image in report.images.all %}
+                        <label class="current-image-item">
+                            <img src="{{ image.image.url }}" alt="{% trans 'Report photo' %}">
+                            <span>
+                                <input type="checkbox" name="delete_images" value="{{ image.id }}">
+                                {% trans 'Delete this photo' %}
+                            </span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <button type="submit">{% trans 'Save' %}</button>
+    </form>
+</section>
+{% endblock %}

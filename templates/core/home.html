@@ -6,20 +6,33 @@
 {% block content %}
 <section class="hero">
     <div>
-        <p class="eyebrow">{% trans 'Neighborhood issue tracker' %}</p>
+        <p class="hero-label">{% trans 'Neighborhood issue tracker' %}</p>
         <h1>{% trans 'Report local problems and follow their progress.' %}</h1>
         <p class="lead">
             {% trans 'LocalFix will help residents submit location-based reports, upload photos, and track moderator updates.' %}
         </p>
+        <div class="summary-grid">
+            <a class="summary-item" href="{% url 'report_list' %}">
+                <strong>{{ total_reports }}</strong>
+                <span>{% trans 'Total reports' %}</span>
+            </a>
+            {% for item in status_summary %}
+                <a class="summary-item" href="{% url 'report_list' %}?status={{ item.value }}">
+                    <strong>{{ item.count }}</strong>
+                    <span>{{ item.label }}</span>
+                </a>
+            {% endfor %}
+        </div>
         {% if user.is_authenticated %}
-            <p class="status-box">
-                {% trans 'You are signed in as' %} <strong>{{ user.username }}</strong>.
-                {% trans 'Your role is' %} <strong>{{ user.profile.get_role_display }}</strong>.
-            </p>
+            <p class="welcome-text">{% trans 'Welcome' %}, <strong>{{ user.username }}</strong>!</p>
+            <div class="actions">
+                <a class="button-link" href="{% url 'report_create' %}">{% trans 'Create report' %}</a>
+                <a href="{% url 'report_list' %}">{% trans 'View reports' %}</a>
+            </div>
         {% else %}
             <div class="actions">
-                <a class="button-link" href="{% url 'register' %}">{% trans 'Create account' %}</a>
-                <a href="{% url 'login' %}">{% trans 'I already have an account' %}</a>
+                <a class="button-link" href="{% url 'login' %}">{% trans 'Authorize' %}</a>
+                <a href="{% url 'register' %}">{% trans 'Create account' %}</a>
             </div>
         {% endif %}
     </div>
