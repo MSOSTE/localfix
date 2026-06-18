@@ -1,40 +1,88 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block title %}{{ title }} | LocalFix{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+{% endblock %}
+
 {% block content %}
-<section class="auth-panel">
+<section class="auth-panel report-form-panel">
     <p class="hero-label">{{ title }}</p>
-    <form method="post" enctype="multipart/form-data" class="auth-form" novalidate>
+    <form method="post" enctype="multipart/form-data" class="auth-form report-form" novalidate>
         {% csrf_token %}
         {% for error in form.non_field_errors %}
-            <div class="form-error">{{ error }}</div>
-        {% endfor %}
-        {% for field in form %}
-            <label for="{{ field.id_for_label }}">
-                {{ field.label }}
-                {% if field.field.required %}<span class="required-mark">*</span>{% endif %}
-            </label>
-            {{ field }}
-            {% for error in field.errors %}
-                <div class="form-error">{{ error }}</div>
-            {% endfor %}
+            <div class="form-error form-wide">{{ error }}</div>
         {% endfor %}
 
-        {% for field in image_form %}
-            <label for="{{ field.id_for_label }}">
-                {{ field.label }}
-                {% if field.field.required %}<span class="required-mark">*</span>{% endif %}
-            </label>
-            {{ field }}
-            {% for error in field.errors %}
-                <div class="form-error">{{ error }}</div>
-            {% endfor %}
-        {% endfor %}
+        <div class="report-form-layout">
+            <div class="form-column">
+                <label for="{{ form.title.id_for_label }}">
+                    {{ form.title.label }} <span class="required-mark">*</span>
+                </label>
+                {{ form.title }}
+                {% for error in form.title.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+
+                <label for="{{ form.category.id_for_label }}">
+                    {{ form.category.label }} <span class="required-mark">*</span>
+                </label>
+                {{ form.category }}
+                {% for error in form.category.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+
+                {% if form.status %}
+                    <label for="{{ form.status.id_for_label }}">
+                        {{ form.status.label }} <span class="required-mark">*</span>
+                    </label>
+                    {{ form.status }}
+                    {% for error in form.status.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+                {% endif %}
+
+                <label for="{{ form.description.id_for_label }}">
+                    {{ form.description.label }} <span class="required-mark">*</span>
+                </label>
+                {{ form.description }}
+                {% for error in form.description.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+
+            </div>
+
+            <div class="form-column">
+                <label for="{{ form.address.id_for_label }}">
+                    {{ form.address.label }} <span class="required-mark">*</span>
+                </label>
+                {{ form.address }}
+                {% for error in form.address.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+
+                <div class="coordinate-row">
+                    <div>
+                        <label for="{{ form.latitude.id_for_label }}">{{ form.latitude.label }}</label>
+                        {{ form.latitude }}
+                        {% for error in form.latitude.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div>
+                        <label for="{{ form.longitude.id_for_label }}">{{ form.longitude.label }}</label>
+                        {{ form.longitude }}
+                        {% for error in form.longitude.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+                    </div>
+                </div>
+
+                <div class="location-picker">
+                    <p class="form-note">{% trans 'Click on the map to fill the address and coordinates.' %}</p>
+                    <div id="location-picker-map" class="reports-map" data-reverse-url="{% url 'reverse_geocode' %}"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="upload-card form-wide">
+            <label for="{{ image_form.images.id_for_label }}">{{ image_form.images.label }}</label>
+            <p class="form-note upload-note">{% trans 'You can select multiple photos at once.' %}</p>
+            {{ image_form.images }}
+            {% for error in image_form.images.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+        </div>
 
         {% if report.images.all %}
-            <div class="current-images">
+            <div class="current-images form-wide">
                 <h2>{% trans 'Current photos' %}</h2>
                 <div class="current-image-grid">
                     {% for image in report.images.all %}
@@ -50,7 +98,12 @@
             </div>
         {% endif %}
 
-        <button type="submit">{% trans 'Save' %}</button>
+        <button type="submit" class="form-submit">{% trans 'Save' %}</button>
     </form>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{% static 'js/report-location.js' %}?v=2"></script>
 {% endblock %}

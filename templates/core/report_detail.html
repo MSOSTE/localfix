@@ -1,12 +1,19 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block title %}{{ report.title }} | LocalFix{% endblock %}
 
+{% block extra_head %}
+{% if map_reports %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <article class="detail-panel">
+    <p class="data-note">{% trans 'Online data' %}</p>
     <div class="card-topline">
-        <span class="badge">{{ report.category.name }}</span>
+        <span class="badge">{{ report.category.translated_name }}</span>
         <span class="status-pill status-{{ report.status }}">{{ report.get_status_display }}</span>
     </div>
     <h1>{{ report.title }}</h1>
@@ -15,6 +22,8 @@
 
     {% if report.latitude and report.longitude %}
         <p class="meta">{% trans 'Coordinates' %}: {{ report.latitude }}, {{ report.longitude }}</p>
+        {{ map_reports|json_script:"report-map-data" }}
+        <div id="reports-map" class="reports-map"></div>
     {% endif %}
 
     {% if report.images.all %}
@@ -35,4 +44,11 @@
         {% endif %}
     </div>
 </article>
+{% endblock %}
+
+{% block scripts %}
+{% if map_reports %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{% static 'js/report-filters.js' %}?v=2"></script>
+{% endif %}
 {% endblock %}

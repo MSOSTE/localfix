@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans 'Map' %} | LocalFix{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+{% endblock %}
+
+{% block content %}
+<section class="content-panel">
+    <div class="section-heading-row">
+        <p class="hero-label">{% trans 'Map' %}</p>
+        <p class="data-note">{% trans 'Online data' %}</p>
+    </div>
+
+    {% if map_reports %}
+        {{ map_reports|json_script:"report-map-data" }}
+        <div class="map-filter-bar">
+            <div class="map-filter-top">
+                <select id="map-status-filter">
+                    <option value="">{% trans 'All statuses' %}</option>
+                    {% for value, label in status_choices %}
+                        <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <a class="create-button map-create-button" href="{% url 'report_create' %}">
+                    <span aria-hidden="true">+</span>
+                    {% trans 'New report' %}
+                </a>
+            </div>
+            <div class="map-category-filters">
+                {% for category in categories %}
+                    <label>
+                        <input type="checkbox" value="{{ category.id }}" checked>
+                        <span style="--category-color: {{ category.color }}">{{ category.translated_name }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="reports-map" class="reports-map reports-map-large"></div>
+    {% else %}
+        <p class="empty-state">{% trans 'No reports with coordinates found.' %}</p>
+    {% endif %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+{% if map_reports %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{% static 'js/report-filters.js' %}?v=3"></script>
+{% endif %}
+{% endblock %}

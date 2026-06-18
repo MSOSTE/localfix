@@ -5,8 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}LocalFix{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=3">
-    <script src="{% static 'js/form-state.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=25">
+    {% block extra_head %}{% endblock %}
+    <script src="{% static 'js/form-state.js' %}?v=3" defer></script>
+    <script src="{% static 'js/nav-menu.js' %}?v=1" defer></script>
 </head>
 <body>
     <header class="site-header">
@@ -17,7 +19,11 @@
             </svg>
             <span>LocalFix</span>
         </a>
-        <nav class="main-nav" aria-label="{% trans 'Main navigation' %}">
+        <button class="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false">
+            <span class="menu-icon" aria-hidden="true"></span>
+            <span>{% trans 'Menu' %}</span>
+        </button>
+        <nav id="main-nav" class="main-nav" aria-label="{% trans 'Main navigation' %}">
             <a class="nav-control nav-link" href="{% url 'home' %}">
                 <svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24">
                     <path d="M3 11.5 12 4l9 7.5"></path>
@@ -35,9 +41,17 @@
                 </svg>
                 <span>{% trans 'Reports' %}</span>
             </a>
-            <form action="{% url 'set_language' %}" method="post" class="language-form">
+            <a class="nav-control nav-link" href="{% url 'report_map' %}">
+                <svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M9 18 3 21V6l6-3 6 3 6-3v15l-6 3-6-3Z"></path>
+                    <path d="M9 3v15"></path>
+                    <path d="M15 6v15"></path>
+                </svg>
+                <span>{% trans 'Map' %}</span>
+            </a>
+            <form action="{% url 'set_preferred_language' %}" method="post" class="language-form">
                 {% csrf_token %}
-                <input type="hidden" name="next" value="{{ request.path }}">
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
                 <div class="language-control">
                     <svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24">
                         <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path>
@@ -45,10 +59,14 @@
                         <path d="M12 3c2.2 2.5 3.2 5.5 3.2 9s-1 6.5-3.2 9"></path>
                         <path d="M12 3c-2.2 2.5-3.2 5.5-3.2 9s1 6.5 3.2 9"></path>
                     </svg>
-                    <select class="nav-control language-select" name="language" aria-label="{% trans 'Language' %}" onchange="window.saveFormState(); this.form.submit()">
+                    <select class="nav-control language-select" name="language" aria-label="{% trans 'Language' %}" onchange="window.changeLanguage(this)">
                         <option value="lv" {% if LANGUAGE_CODE == 'lv' %}selected{% endif %}>LV</option>
                         <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>EN</option>
                     </select>
+                </div>
+                <div class="mobile-language-buttons" aria-label="{% trans 'Language' %}">
+                    <button type="button" class="mobile-language-button {% if LANGUAGE_CODE == 'lv' %}is-active{% endif %}" onclick="window.setLanguage('lv')">LV</button>
+                    <button type="button" class="mobile-language-button {% if LANGUAGE_CODE == 'en' %}is-active{% endif %}" onclick="window.setLanguage('en')">EN</button>
                 </div>
             </form>
             {% if user.is_authenticated %}
@@ -87,5 +105,6 @@
 
         {% block content %}{% endblock %}
     </main>
+    {% block scripts %}{% endblock %}
 </body>
 </html>

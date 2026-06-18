@@ -4,6 +4,21 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
+CATEGORY_LABELS = {
+    "Apgaismojums": "Lighting",
+    "Ceļi": "Roads",
+    "Drošība": "Safety",
+    "Tīrība": "Cleanliness",
+}
+
+CATEGORY_COLORS = {
+    "Apgaismojums": "#f59e0b",
+    "Ceļi": "#2563eb",
+    "Drošība": "#dc2626",
+    "Tīrība": "#16a34a",
+}
+
+
 class Category(models.Model):
     name = models.CharField(_("Name"), max_length=80, unique=True)
     description = models.TextField(_("Description"), blank=True)
@@ -15,6 +30,16 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def translated_name(self):
+        # Category names are stored in Latvian, but shown in the active language.
+        return _(CATEGORY_LABELS.get(self.name, self.name))
+
+    @property
+    def color(self):
+        # Marker colors stay stable across languages.
+        return CATEGORY_COLORS.get(self.name, "#263e8b")
 
 
 class Report(models.Model):

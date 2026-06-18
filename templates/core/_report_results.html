@@ -1,0 +1,43 @@
+{% load i18n %}
+
+<div class="report-grid">
+    {% for report in reports %}
+        <a class="report-card" href="{{ report.get_absolute_url }}">
+            <div class="card-topline">
+                <span class="badge">{{ report.category.translated_name }}</span>
+                <span class="status-pill status-{{ report.status }}">{{ report.get_status_display }}</span>
+            </div>
+            <h2>{{ report.title }}</h2>
+            {% with first_image=report.images.all|first %}
+                {% if first_image %}
+                    <img class="report-card-image" src="{{ first_image.image.url }}" alt="{% trans 'Report photo' %}">
+                {% endif %}
+            {% endwith %}
+            <p>{{ report.description|truncatewords:24 }}</p>
+            <p class="meta">{{ report.address }}</p>
+            <p class="meta">{% trans 'Created by' %} {{ report.created_by.username }} · {{ report.created_at|date:"d.m.Y H:i" }}</p>
+        </a>
+    {% empty %}
+        <p class="empty-state">{% trans 'No reports found.' %}</p>
+    {% endfor %}
+</div>
+
+{% if page_obj.paginator.num_pages > 1 %}
+    <nav class="pagination" aria-label="{% trans 'Pagination' %}">
+        {% if page_obj.has_previous %}
+            <a href="?{% if pagination_query %}{{ pagination_query }}&{% endif %}page={{ page_obj.previous_page_number }}">{% trans 'Previous' %}</a>
+        {% else %}
+            <span class="disabled">{% trans 'Previous' %}</span>
+        {% endif %}
+
+        <span class="page-status">
+            {% trans 'Page' %} {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?{% if pagination_query %}{{ pagination_query }}&{% endif %}page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a>
+        {% else %}
+            <span class="disabled">{% trans 'Next' %}</span>
+        {% endif %}
+    </nav>
+{% endif %}

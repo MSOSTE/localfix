@@ -1,24 +1,27 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block title %}{% trans 'Home' %} | LocalFix{% endblock %}
 
 {% block content %}
-<section class="hero">
+<section class="hero" data-live-stats-url="{% url 'report_live_stats' %}">
     <div>
-        <p class="hero-label">{% trans 'Neighborhood issue tracker' %}</p>
+        <div class="section-heading-row">
+            <p class="hero-label">{% trans 'Neighborhood issue tracker' %}</p>
+            <p class="data-note" data-live-status>{% trans 'Online data' %}</p>
+        </div>
         <h1>{% trans 'Report local problems and follow their progress.' %}</h1>
         <p class="lead">
             {% trans 'LocalFix will help residents submit location-based reports, upload photos, and track moderator updates.' %}
         </p>
         <div class="summary-grid">
             <a class="summary-item" href="{% url 'report_list' %}">
-                <strong>{{ total_reports }}</strong>
+                <strong data-stat="total">{{ total_reports }}</strong>
                 <span>{% trans 'Total reports' %}</span>
             </a>
             {% for item in status_summary %}
                 <a class="summary-item" href="{% url 'report_list' %}?status={{ item.value }}">
-                    <strong>{{ item.count }}</strong>
+                    <strong data-stat="{{ item.value }}">{{ item.count }}</strong>
                     <span>{{ item.label }}</span>
                 </a>
             {% endfor %}
@@ -37,4 +40,8 @@
         {% endif %}
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/live-stats.js' %}?v=4"></script>
 {% endblock %}

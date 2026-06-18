@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Access denied' %} | LocalFix{% endblock %}
+
+{% block content %}
+<section class="auth-panel error-panel">
+    <p class="hero-label">{% trans 'Access denied' %}</p>
+    <h1>403</h1>
+    <p>{% trans 'You do not have permission to open this page.' %}</p>
+    <div class="actions">
+        <a class="primary-action" href="{% url 'home' %}">{% trans 'Home' %}</a>
+        <a class="secondary-action" href="{% url 'report_list' %}">{% trans 'Reports' %}</a>
+    </div>
+</section>
+{% endblock %}

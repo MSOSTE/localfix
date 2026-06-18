@@ -238,3 +238,96 @@ msgstr "Nākamā"
 
 msgid "Page"
 msgstr "Lapa"
+
+msgid "Coordinates are found automatically from the address."
+msgstr "Koordinātes tiek automātiski atrastas pēc adreses."
+
+msgid "Map"
+msgstr "Karte"
+
+msgid "Report map"
+msgstr "Pieteikumu karte"
+
+msgid "Reports with found coordinates are shown on the map."
+msgstr "Kartē tiek rādīti pieteikumi, kuriem ir atrastas koordinātes."
+
+msgid "No reports with coordinates found."
+msgstr "Nav atrastu pieteikumu ar koordinātēm."
+
+msgid "Lighting"
+msgstr "Apgaismojums"
+
+msgid "Roads"
+msgstr "Ceļi"
+
+msgid "Safety"
+msgstr "Drošība"
+
+msgid "Cleanliness"
+msgstr "Tīrība"
+
+msgid "Enter an address or choose a location on the map."
+msgstr "Ievadi adresi vai izvēlies vietu kartē."
+
+msgid "Enter both coordinates or leave both empty."
+msgstr "Ievadi abas koordinātes vai atstāj abas tukšas."
+
+msgid "Enter an address, coordinates, or click a place on the map."
+msgstr "Ievadi adresi, koordinātes vai noklikšķini uz vietas kartē."
+
+msgid "Click on the map to fill the coordinates."
+msgstr "Noklikšķini kartē, lai aizpildītu koordinātes."
+
+msgid "Enter an address or click a place on the map."
+msgstr "Ievadi adresi vai noklikšķini uz vietas kartē."
+
+msgid "Click on the map to fill the address and coordinates."
+msgstr "Noklikšķini kartē, lai aizpildītu adresi un koordinātes."
+
+msgid "Latvian"
+msgstr "Latviešu"
+
+msgid "English"
+msgstr "Angļu"
+
+msgid "Username"
+msgstr "Lietotājvārds"
+
+msgid "Email"
+msgstr "E-pasts"
+
+msgid "Password"
+msgstr "Parole"
+
+msgid "Password confirmation"
+msgstr "Paroles apstiprinājums"
+
+msgid "Photos"
+msgstr "Foto"
+
+msgid "You can select multiple photos at once."
+msgstr "Vari izvēlēties vairākus foto vienlaikus."
+
+msgid "Access denied"
+msgstr "Piekļuve liegta"
+
+msgid "You do not have permission to open this page."
+msgstr "Tev nav tiesību atvērt šo lapu."
+
+msgid "Page not found"
+msgstr "Lapa nav atrasta"
+
+msgid "The page you are looking for does not exist."
+msgstr "Meklētā lapa neeksistē."
+
+msgid "Menu"
+msgstr "Izvēlne"
+
+msgid "Live statistics"
+msgstr "Tiešsaistes statistika"
+
+msgid "Live updates"
+msgstr "Tiešraides dati"
+
+msgid "Online data"
+msgstr "Tiešsaistes dati"

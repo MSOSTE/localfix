@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block title %}{% trans 'Reports' %} | LocalFix{% endblock %}
 
@@ -18,13 +18,42 @@
         {% endif %}
     </div>
 
-    <form method="get" class="filter-bar">
+    <section class="live-stats" data-live-stats-url="{% url 'report_live_stats' %}">
+        <div class="live-stats-header">
+            <h2>{% trans 'Online data' %}</h2>
+            <span class="live-status" data-live-status aria-label="{% trans 'Online data' %}"></span>
+        </div>
+        <div class="live-stats-grid">
+            <div class="live-stat-card">
+                <strong data-stat="total">{{ live_stats.total }}</strong>
+                <span>{% trans 'Total reports' %}</span>
+            </div>
+            <div class="live-stat-card">
+                <strong data-stat="new">{{ live_stats.new }}</strong>
+                <span>{% trans 'New reports' %}</span>
+            </div>
+            <div class="live-stat-card">
+                <strong data-stat="in_progress">{{ live_stats.in_progress }}</strong>
+                <span>{% trans 'In progress' %}</span>
+            </div>
+            <div class="live-stat-card">
+                <strong data-stat="resolved">{{ live_stats.resolved }}</strong>
+                <span>{% trans 'Resolved reports' %}</span>
+            </div>
+            <div class="live-stat-card">
+                <strong data-stat="rejected">{{ live_stats.rejected }}</strong>
+                <span>{% trans 'Rejected reports' %}</span>
+            </div>
+        </div>
+    </section>
+
+    <form method="get" class="filter-bar {% if not user.is_authenticated %}filter-bar-public{% endif %}" id="report-filter-form" data-ajax-url="{% url 'report_list' %}">
         <input type="search" name="q" value="{{ query }}" placeholder="{% trans 'Search reports' %}">
         <select name="category">
             <option value="">{% trans 'All categories' %}</option>
             {% for category in categories %}
                 <option value="{{ category.id }}" {% if selected_category == category.id|stringformat:"s" %}selected{% endif %}>
-                    {{ category.name }}
+                    {{ category.translated_name }}
                 </option>
             {% endfor %}
         </select>
@@ -43,41 +72,13 @@
         <button type="submit">{% trans 'Filter' %}</button>
     </form>
 
-    <div class="report-grid">
-        {% for report in reports %}
-            <a class="report-card" href="{{ report.get_absolute_url }}">
-                <div class="card-topline">
-                    <span class="badge">{{ report.category.name }}</span>
-                    <span class="status-pill status-{{ report.status }}">{{ report.get_status_display }}</span>
-                </div>
-                <h2>{{ report.title }}</h2>
-                <p>{{ report.description|truncatewords:24 }}</p>
-                <p class="meta">{{ report.address }}</p>
-                <p class="meta">{% trans 'Created by' %} {{ report.created_by.username }} · {{ report.created_at|date:"d.m.Y H:i" }}</p>
-            </a>
-        {% empty %}
-            <p class="empty-state">{% trans 'No reports found.' %}</p>
-        {% endfor %}
+    <div id="report-results">
+        {% include "core/_report_results.html" %}
     </div>
-
-    {% if page_obj.paginator.num_pages > 1 %}
-        <nav class="pagination" aria-label="{% trans 'Pagination' %}">
-            {% if page_obj.has_previous %}
-                <a href="?{% if pagination_query %}{{ pagination_query }}&{% endif %}page={{ page_obj.previous_page_number }}">{% trans 'Previous' %}</a>
-            {% else %}
-                <span class="disabled">{% trans 'Previous' %}</span>
-            {% endif %}
-
-            <span class="page-status">
-                {% trans 'Page' %} {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
-            </span>
-
-            {% if page_obj.has_next %}
-                <a href="?{% if pagination_query %}{{ pagination_query }}&{% endif %}page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a>
-            {% else %}
-                <span class="disabled">{% trans 'Next' %}</span>
-            {% endif %}
-        </nav>
-    {% endif %}
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/report-filters.js' %}?v=6"></script>
+<script src="{% static 'js/live-stats.js' %}?v=4"></script>
 {% endblock %}
